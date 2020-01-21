@@ -1,0 +1,250 @@
+<html>   
+	<head> 
+		<link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+		<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+		<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+		<script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+		<script src="../vcXMLRPC.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<script type="text/javascript" src="js/function.js"></script>
+	</head>
+	<body> 
+		<div class="fluig-style-guide">
+			<div class="col-md-12">
+				<form name="form" role="form">	
+					<div class="panel panel-primary">
+						<div class="panel-heading titulo">
+							<h2 class="panel-title ">SOLICITAÇÃO DE REEMBOLSO DE DESPESAS DE VIAGENS</h2>
+						</div>	
+					</div>
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">  <span class="fluigicon fluigicon-user icon-md"> </span> &nbsp SOLICITANTE</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="clas col-md-12 fs-display-none">
+									<input type="text" name="statusAtividade" id="statusAtividade" class="form-control">
+								</div>
+							</div>
+						  	<div class="row">								
+								<div class="col-md-7">
+									<label class="control-label"> <b>Solicitante</b></label>
+									<input type="text" id="nomeRequisitante" name="nomeRequisitante" readonly="readonly" class="form-control">
+								</div>
+								<div class="col-md-3 titulo">
+									<label class="control-label">Data da Solicitação</label>
+									<input type="text" id="dtSolic" name="dtSolic" class="form-control" readonly="readonly">
+								</div>
+								<div class="col-md-2 titulo">
+									<label class="control-label">Número Solcitação</label>
+									<input type="text" id="numeroSolicita" name="numeroSolicita" class="form-control" readonly="readonly">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label class="control-label">
+										Centro de Custo
+										<span class="obrigatorio">*</span>
+									</label>									
+									<input 
+										type="zoom"
+										id = "ccusto"
+										name="ccusto"
+										data-zoom="{
+										'displayKey':'centroCusto',
+										'datasetId':'delta_centro_custo',
+										'placeholder':'Escolha o centro de custo',
+										'fields':[
+										{
+										'field':'centroCusto',
+										'label':'Centro de Custo',
+										'standard':'true'
+										},{
+										'field':'nomeRespCentroCusto',
+										'label':'Responsável'
+										},{
+										'field':'loginRespCentroCusto',
+										'label':'Login'
+										}
+										]
+										}"
+										/>
+								</div>
+								<div class="col-md-6">
+									<label for="responsaCc">Responsável Centro Custo</label>
+									<input type="text" name="nomeResponsaCc" id="nomeResponsaCc" class="form-control" readonly="readonly">
+								</div>
+								<div class="fs-display-none">
+									<input type="text" name="loginResponsaCc" id="loginResponsaCc" class="form-control">
+								</div>
+						  	</div>
+							<div class="row">
+								<div class="form-group col-md-3 titulo">
+									<label for="periodofim">
+										Data de retorno da viagem
+										<span class="obrigatorio">*</span>
+									</label>
+									<div class="input-group titulo">
+										<span class="input-group-addon" style="
+											padding-top: 0px;
+											padding-bottom: 0px;"> 
+											<span class="fluigicon fluigicon-calendar"></span>
+										</span>
+										<input type="text" class="form-control" name="periodofim" id="periodofim">
+									</div>
+								</div>
+								<div class="form-group col-md-9">
+									<label class="control-label" for="descViagen">
+										Descrição Viagem
+										<span class="obrigatorio">*</span>
+									</label>
+									<textarea rows="4" class="form-control" name="descViagen" id="descViagen" placeholder="Faça um breve resumo de sua viagem"> </textarea>
+								</div>
+							</div>						
+							<div class="row">
+                                <div class="col-md-12">
+                                    <table tablename="tablePaiFilho"  id="tablePaiFilho" class="table table-houver" noaddbutton=true customFnDelete="fnCustomDelete(this)" > 
+                                        <thead>
+                                            <tr>
+                                                <td class="col-md-3 titulo" >
+                                                    <label class="control-label">
+														Data Custo 
+														<span class="obrigatorio">*</span>
+													</label>
+                                                </td>
+                                                <td class="col-md-4 titulo " >
+                                                    <label class="control-label">
+														Tipo
+														<span class="obrigatorio">*</span>
+													</label>
+                                                </td>                                               
+                                                <td class="col-md-3 titulo " >
+                                                    <label class="control-label">
+														Valor
+														<span class="obrigatorio">*</span>
+													</label>
+                                                </td>                                            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>						  			
+                                                <td class="col-md-3 input-group" >	
+													<div class="input-group titulo">
+														<span class="input-group-addon" style="
+															padding-top: 0px;
+															padding-bottom: 0px;"> 
+															<span class="fluigicon fluigicon-calendar"></span>
+														</span>
+														<input type="text" id="dtCusto" name="dtCusto" class="form-control data " >
+													</div>
+                                                </td>	
+                                                <td class="col-md-4 titulo" >
+                                                    <select  id="tipo" name="tipo" class="form-control ">
+                                                        <option value="rfmanha">Café da Manhã</option>
+                                                        <option value="rfalmoco">Almoço</option>
+                                                        <option value="rfJantar">Jantar</option>
+                                                        <option value="deslocamento">Deslocamento</option>
+                                                        <option value="hospedagem">Hospedagem</option> 
+                                                        <option value="outros">Outros</option> 
+                                                    </select> 
+                                                </td>
+                                                <td class="col-md-3" > 
+													<div class="form-group titulo">
+														<div class="input-group">
+															<div class="input-group-addon">R$</div>
+															<input type="text" id="valor"  name="valor" class="form-control  " mask="#000000000.00" value="0.00">
+														</div>
+													</div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+				      		</div>      		
+							<div class="row">
+    							<button type="button" class="btn btn-primary" name="btn_add" id="btn_add" onclick="wdkAddChild('tablePaiFilho');init();">Adicionar Lancamento</button>
+							</div>	
+				      		<div class="row">
+                                <div class="col-md-9">
+                                </div>
+                                <div class="col-md-3 titulo">
+									<label for="somaValores"><b>Valor Total</b></label>
+									<div class="form-group">
+										<div class="input-group titulo">
+											<div class="input-group-addon">R$</div>
+											<input type="text" name="vlrTotal" id="vlrTotal" class="form-control" readonly="readonly">
+										</div>
+									</div>
+							  	</div>
+							</div>
+							<div class="row">
+								<div class="col-7">
+										<span class="obrigatorio">*</span> <b>Lance individualmente os valores a serem reembolsados</b> 
+								</div>
+							</div>	
+						</div>							
+					</div>
+					<div class="panel panel-primary" id="panelAprov">
+						<div class="panel-heading">
+							<h3 class="panel-title"> <span class="fluigicon fluigicon-community-pending icon-md"> </span> &nbsp&nbsp APROVAÇÃO</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-7">
+									<label for="NomeAprovador"><b>Aprovador</b></label>
+									<input type="text" name="NomeAprovador" id="NomeAprovador" class="form-control" readonly="readonly">
+								</div>
+								<div class="col-md-3">
+									<div class="col-md-12 titulo">										
+										<label for="aprovReemb">Aprova Reembolso?</label>
+									</div>
+									<div class="col-md-12 titulo">
+										<div class="switch switch-success switch-xl">
+											<input class="switch-input" type="checkbox" id="aprovReemb" name="aprovReemb"/>
+											<label class="switch-button" for="aprovReemb"></label>
+										</div>
+									</div>									
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label for="motivo">Motivo </label>
+									<textarea name="motivo" id="motivo"  rows="5" class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary" id="panelDp">
+						<div class="panel-heading">
+							<h3 class="panel-title">  <span class="fluigicon fluigicon-calendar-verified icon-md"> </span>&nbsp&nbsp DEPARTAMENTO PESSOAL</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-8">
+									<label for="nomeDPessoal"><b>Responsável departamento pessoal</b></label>
+									<input type="text" name="nomeDPessoal" id="nomeDPessoal" class="form-control" readonly="readonly">
+								</div>
+								<div class="col-md-3 titulo">
+									<label for="dtaReemb">
+										Data programada para reembolso
+										<span class="obrigatorio">*</span>
+									</label>
+									<div class="input-group titulo">
+										<span class="input-group-addon" style="
+											padding-top: 0px;
+											padding-bottom: 0px;"> 
+											<span class="fluigicon fluigicon-calendar"></span>
+										</span>
+										<input type="text" name="dtaReemb" id="dtaReemb" class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>			
+		</div>
+	</body>
+</html>
